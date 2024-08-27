@@ -16,11 +16,35 @@ namespace App\Models{
  * 
  *
  * @property int $id
+ * @property int $user_id
+ * @property int $project_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Member newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Member newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Member query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Member whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Member whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Member whereProjectId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Member whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Member whereUserId($value)
+ */
+	class Member extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
  * @property string $title
  * @property int $creator_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User $creator
+ * @property-read \App\Models\Member $pivot
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $members
+ * @property-read int|null $members_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Task> $tasks
  * @property-read int|null $tasks_count
  * @method static \Database\Factories\ProjectFactory factory($count = null, $state = [])
@@ -44,9 +68,9 @@ namespace App\Models{
  * @property string $title
  * @property bool $is_done
  * @property int $creator_id
+ * @property int|null $project_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property int|null $project_id
  * @property-read \App\Models\User $creator
  * @property-read \App\Models\Project|null $project
  * @method static \Database\Factories\TaskFactory factory($count = null, $state = [])
@@ -76,6 +100,9 @@ namespace App\Models{
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Member $pivot
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Project> $memberships
+ * @property-read int|null $memberships_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Project> $projects
