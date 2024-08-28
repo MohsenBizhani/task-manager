@@ -8,6 +8,7 @@ use App\Http\Resources\TaskResource;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use Illuminate\Support\Facades\Auth;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -20,7 +21,13 @@ class TaskController extends Controller
         Gate::authorize('viewAny', Task::class);
 
         $tasks = QueryBuilder::for(Task::class)
-            ->allowedFilters('is_done')
+            ->allowedFilters([
+                'is_done',
+                'scheduled_at',
+                'due_at',
+                AllowedFilter::scope('scheduled_between'),
+                AllowedFilter::scope('due_between'),
+            ])
             ->defaultSort('-created_at')
             ->allowedSorts(['title', 'is_done', 'created_at'])
             ->paginate();
