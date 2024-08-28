@@ -51,6 +51,19 @@ class Task extends Model
         $query->whereBetween('due_at', [$fromDate, $toDate]);
     }
 
+    public function scopeDue(Builder $query, string $filter)
+    {
+        if ($filter === 'today')
+        {
+            $query = $query->whereDate('due_at', '>=', now());
+        }
+        else if ($filter === 'past')
+        {
+            $query = $query->whereDate('due_at', '<', now());
+        }
+        $query->whereBetween('due_at', [$fromDate, $toDate]);
+    }
+
     protected static function booted(): void
     {
         static::addGlobalScope('member',function(Builder $builder) {
