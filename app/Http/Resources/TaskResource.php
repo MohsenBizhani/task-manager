@@ -19,10 +19,11 @@ class TaskResource extends JsonResource
             'title' => $this->title,
             'is_done' => $this->is_done,
             'status' => $this->is_done ? 'closed' : 'open', // Assuming you want to keep this status logic
+            'project_id' =>$this->project_id,
             'creator_id' => $this->creator_id,  // Include the creator_id field
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,  // Include the updated_at field
         ];
-    
+
     }
 }
