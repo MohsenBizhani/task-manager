@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\Task;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class TaskPolicy
 {
@@ -13,7 +12,7 @@ class TaskPolicy
      */
     public function viewAny(User $user): bool
     {
-        true;
+        return true;
     }
 
     /**
@@ -38,7 +37,7 @@ class TaskPolicy
      */
     public function create(User $user): bool
     {
-        true;
+        return true;
     }
 
     /**

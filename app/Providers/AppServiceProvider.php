@@ -7,6 +7,8 @@ use App\Models\Project;
 use App\Models\Task;
 use App\Observers\ProjectObserver;
 use Illuminate\Support\Facades\Gate;
+use App\Policies\ProjectPolicy;
+use App\Policies\TaskPolicy;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Project::observe(ProjectObserver::class);
-        Gate::policy(Project::class, \App\Policies\ProjectPolicy::class);
-        Gate::policy(Task::class, \App\Policies\TaskPolicy::class);
+        Gate::policy(Project::class, ProjectPolicy::class);
+        Gate::policy(Task::class, TaskPolicy::class);
     }
 }

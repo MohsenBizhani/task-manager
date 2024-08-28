@@ -5,21 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use App\Http\Resources\TaskCollection;
 use App\Http\Resources\TaskResource;
-use App\Http\Requests\StoreTaskRequet;
+use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class TaskController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->authorizeResource(Task::class, 'task');
-    }
-    
     public function index(Request $request)
     {
+        Gate::authorize('viewAny', Task::class);
 
         $tasks = QueryBuilder::for(Task::class)
             ->allowedFilters('is_done')
@@ -35,13 +32,15 @@ class TaskController extends Controller
 
     public function show(Request $request, Task $task)
     {
+        Gate::authorize('view', $task);
         return new TaskResource($task);
     }
 
 
-    public function store(StoreTaskRequet $request)
+    public function store(StoreTaskRequest $request)
     {
-        $validated = $request->validated(); 
+        Gate::authorize('create', Task::class);
+        $validated = $request->validated();
 
         $task = Auth::user()->tasks()->create($validated);
 
@@ -51,7 +50,9 @@ class TaskController extends Controller
 
     public function update(UpdateTaskRequest $request, Task $task)
     {
-        $validated = $request->validated(); 
+        Gate::authorize('update', $task);
+
+        $validated = $request->validated();
 
         $task->update($validated);
 
@@ -61,6 +62,8 @@ class TaskController extends Controller
 
     public function destroy(Request $request, Task $task)
     {
+        Gate::authorize('delete', $task);
+
         $task->delete();
 
         return response()->noContent();
