@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\TaskController;
+namespace Tests\Feature\Controllers\TaskController;
 
 use App\Models\Task;
 use App\Models\User;
