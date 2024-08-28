@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\MembersController;
@@ -24,5 +25,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('projects.members', MembersController::class)
         ->only([
             'index', 'store', 'destroy',
-        ]);    
+        ]);
+    Route::apiResource('projects.comments', CommentController::class)
+        ->only([
+            'index', 'store',
+        ]);
+    Route::apiResource('tasks.members', CommentController::class)
+        ->only([
+            'index', 'store',
+        ]);
 });
