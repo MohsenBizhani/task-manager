@@ -30,7 +30,7 @@ Route::middleware('auth:sanctum')->group(function () {
         ->only([
             'index', 'store',
         ]);
-    Route::apiResource('tasks.members', CommentController::class)
+    Route::apiResource('tasks.comments', CommentController::class)
         ->only([
             'index', 'store',
         ]);

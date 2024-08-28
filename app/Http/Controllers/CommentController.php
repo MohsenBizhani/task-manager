@@ -23,9 +23,10 @@ class CommentController extends Controller
         });
     }
 
-    public function store(StoreCommentRequest $request, Project|Task $model)
+    public function store(StoreCommentRequest $request, Project $project = null, Task $task = null)
     {
         $validated = $request->validated();
+        $model = $project ?? $task;
 
         $comment = $model->comments()->make($validated);
 
