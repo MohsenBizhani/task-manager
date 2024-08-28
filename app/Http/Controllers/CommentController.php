@@ -23,6 +23,14 @@ class CommentController extends Controller
         });
     }
 
+    public function index(Request $request, Project $project = null, Task $task = null)
+    {
+        $model = $project ?? $task;
+        $comments = $model->comments()->orderByDesc('created_at')->paginate();
+
+        return new CommentResource($comments);
+    }
+
     public function store(StoreCommentRequest $request, Project $project = null, Task $task = null)
     {
         $validated = $request->validated();
